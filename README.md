@@ -55,7 +55,7 @@ Install apache2-utils
 
 Now you can run test with 1000 requests with a concurrency of 100.
 ```sh
-ab -n 1000 -c 100 http://app.local/
+$ ab -n 1000 -c 100 http://app.local/
 ...
 Complete requests:      1000
 Failed requests:        0
@@ -69,7 +69,7 @@ Now, changing nginx configuration for [Basic Rate Limiting](https://www.nginx.co
 ```
 Now limit is 5 requests per second per one IP. And test results for this configuration is:
 ```sh
-ab -n 1000 http://app.local/
+$ ab -n 1000 http://app.local/
 ...
 Concurrency Level:      1
 Time taken for tests:   0.464 seconds
