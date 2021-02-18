@@ -20,7 +20,7 @@ def upload():
 
 @app.route('/', methods=['GET'])
 def resp():
-    return 'Use curl -X POST -H "Content-Type: application/json" -d @terraform_state_for_interview.json localhost:5000\n'
+    return 'Use curl -X POST -H "Content-Type: application/json" -d @terraform.tfstate http://app.local/ \n'
 
 
 if __name__ == '__main__':
