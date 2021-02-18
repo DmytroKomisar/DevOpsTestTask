@@ -22,7 +22,7 @@ Add hostname:
 
     $ sudo sh -c "echo '127.0.0.1 app.local' >> /etc/hosts"
 
-Build applicatiuon and [ngnix] images: 
+Build applicatiuon and [ngnix](https://nginx.org/) images: 
 
     $ docker-compose build
 
@@ -48,20 +48,50 @@ curl -X POST -H "Content-Type: application/json" -d @terraform.tfstate http://ap
 
 > Note: This is a development server. Do not use it in a production deployment.
 
+## Stress testing
+Install apache2-utils
+
+    $ sudo apt install apache2-utils
+
+Now you can run test with 1000 requests with a concurrency of 100.
+```sh
+ab -n 1000 -c 100 http://app.local/
+...
+Complete requests:      1000
+Failed requests:        0
+...
+
+```
+
+Now, changing nginx configuration for [Basic Rate Limiting](https://www.nginx.com/blog/rate-limiting-nginx/#Configuring-Basic-Rate-Limiting) to
+```sh
+    limit_req_zone $binary_remote_addr zone=mylimit:10m rate=5r/s; 
+```
+Now limit is 5 requests per second per one IP. And test results for this configuration is:
+```sh
+ab -n 1000 http://app.local/
+...
+Concurrency Level:      1
+Time taken for tests:   0.464 seconds
+Complete requests:      1000
+Failed requests:        997
+...
+```
 
 ### What was done:
 - [x] RESTful API service which will allow you to upload file using curl
 - [ ] Add parameter which allows to do filtering by attribute in sg rule.
 - [x] Create Dockerfile which will have service from task 1 
-- [ ] Create second docker which will be linked to the first container, proxing requests 
+- [x] Create second docker which will be linked to the first container, proxing requests 
 - [x] Create docker-compose file which will allow you to build dockers above and run containers
-- [ ] Create script for stress testing to check if rate limiting is working or some tool for it
+- [x] Create script for stress testing to check if rate limiting is working or some tool for it
 - [x] Create documentation in markdown format
 
 ### What can be improved:       
+- Task 2 needs to be completed
+- Enable Https 
+- All this can be deployed to AWS ECS with Terraform 
 
 ## License
 
-MIT
-
-   [ngnix]: <https://nginx.org/>
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
