@@ -1,4 +1,4 @@
-### Inintial Task:
+### Initial Task:
 1. You will be prowided with terraform state file. You should develop a simple web service
 with a RESTful API service which will allow you to upload this file using curl, parse it and
 respond with all security groups in this file. Use an language (not bash) and libs by your
